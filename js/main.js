@@ -1,21 +1,22 @@
 /*----- constants -----*/
 const SOURCE_CARDS = [
-    {img: 'https://imgur.com/alwDyvP' , matched: false},
-    {img: 'https://imgur.com/rTyEO8e' , matched: false},
-    {img: 'https://imgur.com/pmdiDex' , matched: false},
-    {img: 'https://imgur.com/rMVWMVC' , matched: false},
-    {img: 'https://imgur.com/BmWsFzu' , matched: false},
-    {img: 'https://imgur.com/2gKlohs' , matched: false},
-    {img: 'https://imgur.com/mH4GxOK' , matched: false},
-    {img: 'https://imgur.com/mwXZb1A' , matched: false},
+    {img: 'https://i.imgur.com/mwXZb1A.jpg' , matched: false},
+    {img: 'https://i.imgur.com/mH4GxOK.jpg' , matched: false},
+    {img: 'https://i.imgur.com/2gKlohs.jpg' , matched: false},
+    {img: 'https://i.imgur.com/BmWsFzu.jpg' , matched: false},
+    {img: 'https://i.imgur.com/rMVWMVC.jpg' , matched: false},
+    {img: 'https://i.imgur.com/pmdiDex.jpg' , matched: false},
+    {img: 'https://i.imgur.com/rTyEO8e.jpg' , matched: false},
+    {img: 'https://i.imgur.com/alwDyvP.jpg' , matched: false},
 ];
-const CARD_BACK = 'https://imgur.com/ad9732D';
+const CARD_BACK = 'https://i.imgur.com/TCsubGF.jpg';
 
 
 
 /*----- state variables -----*/
 let cards;
 let firstCard;
+
 
 
 /*----- cached elements  -----*/
@@ -34,9 +35,10 @@ function init () {
  }
 
  function render () {
-    cards.forEach(function(card, idx) {
+    cards.forEach(function(card, idx)  {
         const imgEl=document.getElementById(idx);
-        imgEl.src = card.img;
+        const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
+        imgEl.src = src;
     });
  }
 
@@ -44,14 +46,14 @@ function init () {
     let tempCards = [];
     let cards =  [];
     for (let card of SOURCE_CARDS ){
-        tempCards.push(card, card);
+        tempCards.push({...card}, {...card});
     }
     while (tempCards.length) {
-        let rndIdx = math.floor(Math.random() * tempCards.length);
+        let rndIdx = Math.floor(Math.random() * tempCards.length);
         let card = tempCards.splice(rndIdx, 1)[0];
         cards.push(card);
     }
     // console.log(tempCards);
     return cards;
 
- }
+ };
