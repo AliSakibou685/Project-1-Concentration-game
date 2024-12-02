@@ -23,7 +23,7 @@ let firstCard;
 
 
 /*----- event listeners -----*/
-
+document.querySelector('main').addEventListener('click', handlePick)
 
 /*----- functions -----*/
 init();
@@ -55,5 +55,10 @@ function init () {
     }
     // console.log(tempCards);
     return cards;
+};
 
- };
+function handlePick(evt) {
+    const cardIdx = parseInt(evt.target.id);
+
+    console.log(cardIdx)
+}
