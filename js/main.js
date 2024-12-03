@@ -9,7 +9,7 @@ const SOURCE_CARDS = [
     { img: 'https://i.imgur.com/rTyEO8e.jpg', matched: false },
     { img: 'https://i.imgur.com/alwDyvP.jpg', matched: false },
 ];
-const CARD_BACK = 'https://i.imgur.com/TCsubGF.jpg';
+const CARD_BACK = 'https://i.imgur.com/ad9732D.jpg';
 
 
 
@@ -18,6 +18,7 @@ let cards;
 let firstCard;
 let numBad;
 let ignoreClicks;
+let winner;
 
 
 /*----- cached elements  -----*/
@@ -86,11 +87,37 @@ function handleClick(evt) {
                 card.matched = false;
                 firstCard = null;
                 render();
-            }, 2000);
+            }, 1000);
         }
     } else {
         firstCard = card;
     }
+   
     render();
 }
 
+function checkForMatch() {
+    if (flippedCards.length === 2) {
+      const [card1, card2] = flippedCards;
+  
+      if (card1.value === card2.value) {
+        // Match!
+        card1.matched = true;
+        card2.matched = true;
+        flippedCards = [];
+        matchedPairs++;
+  
+        if (matchedPairs === totalPairs) {
+          // Game won!
+          alert("You won!");
+        }
+      } else {
+        // No match, flip back after a delay
+        setTimeout(() => {
+          card1.flipped = false;
+          card2.flipped = false;
+          flippedCards = [];
+        }, 1000); // 1 second delay
+      }
+    }
+}
