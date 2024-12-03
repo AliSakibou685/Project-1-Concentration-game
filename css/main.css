@@ -25,8 +25,11 @@ img {
   height: 100%;
   width: 100%;
   object-fit: cover;
-
-
+  position: relative;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition-duration: .5s;
+ 
 }
 
 main {
@@ -35,4 +38,10 @@ main {
   grid-template-rows: repeat(4, 15vmin);
   gap: 2vmin;
   margin-top: 2vmin;
+  perspective: 1000px;
+  
+}
+
+img.flip {
+  transform: rotateY(180deg);
 }
