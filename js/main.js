@@ -16,14 +16,17 @@ const CARD_BACK = 'https://i.imgur.com/TCsubGF.jpg';
 /*----- state variables -----*/
 let cards;
 let firstCard;
-
+let numBad;
+let ignoreCliks;
 
 
 /*----- cached elements  -----*/
-
-
+const msgEl = document.querySelector('h3');
+const imgEls= [...document.querySelectorAll('main > img')];
 /*----- event listeners -----*/
-document.querySelector('main').addEventListener('click', handlePick)
+imgEls.forEach(imgEl => {
+    imgEl.addEventListener('click', handlePick)
+} )
 
 /*----- functions -----*/
 init();
@@ -31,6 +34,8 @@ init();
 function init () {
     cards= getShuffledCards();
     firstCard = null;
+    numBad = 0;
+    ignoreCliks= false;
     render();
  }
 
@@ -40,6 +45,8 @@ function init () {
         const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
         imgEl.src = src;
     });
+    msgEl.innerHTML= `Bad Count ${numBad}`;
+    ;
  }
 
  function getShuffledCards() {
@@ -59,6 +66,20 @@ function init () {
 
 function handlePick(evt) {
     const cardIdx = parseInt(evt.target.id);
-
-    console.log(cardIdx)
+    if (isNaN(cardIdx)|| ignoreCliks) return;
+    const card = cards[cardIdx];
+    if (firstCard){
+        if (firstCard.img === card.img){
+            firstCard.matched= true
+            card.matched = true;
+            
+        } else {
+            numBad++;
+        }
+        firstCard=null;
+    } else {
+        firstCard = card;
+    }
+    render();
 }
+
