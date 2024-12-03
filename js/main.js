@@ -17,7 +17,7 @@ const CARD_BACK = 'https://i.imgur.com/TCsubGF.jpg';
 let cards;
 let firstCard;
 let numBad;
-let ignoreCliks;
+let ignoreClicks;
 
 
 /*----- cached elements  -----*/
@@ -25,7 +25,7 @@ const msgEl = document.querySelector('h3');
 const imgEls = [...document.querySelectorAll('main > img')];
 /*----- event listeners -----*/
 imgEls.forEach(imgEl => {
-    imgEl.addEventListener('click', flipCard)
+    imgEl.addEventListener('click', handleClick)
 })
 
 /*----- functions -----*/
@@ -35,7 +35,7 @@ function init() {
     cards = getShuffledCards();
     firstCard = null;
     numBad = 0;
-    ignoreCliks = false;
+    ignoreClicks = false;
     render();
 }
 
@@ -64,25 +64,33 @@ function getShuffledCards() {
     return cards;
 };
 
-function flipCard(evt) {
-    this.classList.toggle('flip');
+function handleClick(evt) {
+    if (ignoreClicks) return;
     const cardIdx = parseInt(evt.target.id);
-    if (isNaN(cardIdx) || ignoreCliks) return;
+    if (isNaN(cardIdx)) return;
     const card = cards[cardIdx];
-    if (firstCard) {
+    const cardEl = this;
+    cardEl.classList.toggle('flip');
+    if (firstCard === card) {
+        numBad++; 
+        firstCard = null;
+    } else if (firstCard) {
+        card.matched = true;
         if (firstCard.img === card.img) {
-            firstCard.matched = true
-            card.matched = true;
-
+            firstCard.matched = true;
         } else {
             numBad++;
+            ignoreClicks = true;
+            setTimeout(function() {
+                ignoreClicks = false;
+                card.matched = false;
+                firstCard = null;
+                render();
+            }, 2000);
         }
-        firstCard = null;
     } else {
         firstCard = card;
     }
     render();
-    
-
 }
 
