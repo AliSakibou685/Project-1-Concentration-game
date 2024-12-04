@@ -18,7 +18,7 @@ let cards;
 let firstCard;
 let numBad;
 let ignoreClicks;
-let winner;
+let Match;
 
 
 /*----- cached elements  -----*/
@@ -79,7 +79,8 @@ function handleClick(evt) {
         card.matched = true;
         if (firstCard.img === card.img) {
             firstCard.matched = true;
-        } else {
+            firstCard = null;
+         } else {
             numBad++;
             ignoreClicks = true;
             setTimeout(function() {
@@ -94,30 +95,4 @@ function handleClick(evt) {
     }
    
     render();
-}
-
-function checkForMatch() {
-    if (flippedCards.length === 2) {
-      const [card1, card2] = flippedCards;
-  
-      if (card1.value === card2.value) {
-        // Match!
-        card1.matched = true;
-        card2.matched = true;
-        flippedCards = [];
-        matchedPairs++;
-  
-        if (matchedPairs === totalPairs) {
-          // Game won!
-          alert("You won!");
-        }
-      } else {
-        // No match, flip back after a delay
-        setTimeout(() => {
-          card1.flipped = false;
-          card2.flipped = false;
-          flippedCards = [];
-        }, 1000); // 1 second delay
-      }
-    }
 }
