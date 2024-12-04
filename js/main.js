@@ -19,6 +19,8 @@ let firstCard;
 let numBad;
 let ignoreClicks;
 let Match;
+let totalPairs;
+let matchedPairs
 
 
 /*----- cached elements  -----*/
@@ -37,6 +39,8 @@ function init() {
     firstCard = null;
     numBad = 0;
     ignoreClicks = false;
+    totalPairs = 8;
+    matchedPairs = 0;
     render();
 }
 
@@ -47,7 +51,10 @@ function render() {
         imgEl.src = src;
     });
     msgEl.innerHTML = `Bad Count ${numBad}`;
-    ;
+    if (matchedPairs === totalPairs) {
+        msgEl.innerText = 'you won!'
+    }
+
 }
 
 function getShuffledCards() {
@@ -73,17 +80,20 @@ function handleClick(evt) {
     const cardEl = this;
     cardEl.classList.toggle('flip');
     if (firstCard === card) {
-        numBad++; 
+        numBad++;
         firstCard = null;
     } else if (firstCard) {
         card.matched = true;
         if (firstCard.img === card.img) {
             firstCard.matched = true;
             firstCard = null;
-         } else {
+            matchedPairs++;
+
+
+        } else {
             numBad++;
             ignoreClicks = true;
-            setTimeout(function() {
+            setTimeout(function () {
                 ignoreClicks = false;
                 card.matched = false;
                 firstCard = null;
@@ -93,6 +103,7 @@ function handleClick(evt) {
     } else {
         firstCard = card;
     }
-   
+
     render();
 }
+
