@@ -11,16 +11,15 @@ const SOURCE_CARDS = [
 ];
 const CARD_BACK = 'https://i.imgur.com/ad9732D.jpg';
 
-
+const MAX_BAD_GUESSES = 10;
 
 /*----- state variables -----*/
 let cards;
 let firstCard;
 let numBad;
 let ignoreClicks;
-let Match;
-let totalPairs;
-let matchedPairs
+let gameStatus;
+
 
 
 /*----- cached elements  -----*/
@@ -39,8 +38,7 @@ function init() {
     firstCard = null;
     numBad = 0;
     ignoreClicks = false;
-    totalPairs = 8;
-    matchedPairs = 0;
+    gameStatus = null;
     render();
 }
 
@@ -50,11 +48,13 @@ function render() {
         const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
         imgEl.src = src;
     });
-    msgEl.innerHTML = `Bad Count ${numBad}`;
-    if (matchedPairs === totalPairs) {
-        msgEl.innerText = 'you won!'
-    }
-
+    if (gameStatus === 'W') {
+        msgEl.innerHTML = 'You Won!';
+    } else if (gameStatus === 'L') {
+        msgEl.innerHTML = 'You Lose!';
+    } else {
+        msgEl.innerHTML = `${MAX_BAD_GUESSES - numBad} incorrect guesses remaining`;
+    }  
 }
 
 function getShuffledCards() {
@@ -73,7 +73,7 @@ function getShuffledCards() {
 };
 
 function handleClick(evt) {
-    if (ignoreClicks) return;
+    if (ignoreClicks || gameStatus) return;
     const cardIdx = parseInt(evt.target.id);
     if (isNaN(cardIdx)) return;
     const card = cards[cardIdx];
@@ -87,9 +87,6 @@ function handleClick(evt) {
         if (firstCard.img === card.img) {
             firstCard.matched = true;
             firstCard = null;
-            matchedPairs++;
-
-
         } else {
             numBad++;
             ignoreClicks = true;
@@ -103,7 +100,13 @@ function handleClick(evt) {
     } else {
         firstCard = card;
     }
-
+    
+    gameStatus = getGameStatus();
     render();
 }
 
+function getGameStatus() {
+    if (cards.every((card) => card.matched)) return 'W';
+    if (numBad === MAX_BAD_GUESSES) return 'L';
+    return null;
+}
