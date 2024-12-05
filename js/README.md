@@ -16,7 +16,7 @@ The game continues until all pairs are matched.
 - CardStarter CSS Library
 
 # Getting Started
-[Click to Memory-game!](https://alisakibou685.github.io/Project-1-Concentration-game/)
+[Click to Memory-game](https://alisakibou685.github.io/Project-1-Concentration-game/)
 
 # Next Steps
 
