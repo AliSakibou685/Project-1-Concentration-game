@@ -6,8 +6,8 @@ The game continues until all pairs are matched.
 # Screenshot
 
 
-<img src="url to your image on imgur" alt="acreenshot">
-<img src="url to your image on imgur" alt="acreenshot">
+<img src="url to your image on imgur" alt="screenshot">
+<img src="url to your image on imgur" alt="screenshot">
 
 
 # Technologies Used
