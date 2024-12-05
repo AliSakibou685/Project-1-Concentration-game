@@ -25,11 +25,15 @@ let gameStatus;
 /*----- cached elements  -----*/
 const msgEl = document.querySelector('h3');
 const imgEls = [...document.querySelectorAll('main > img')];
+const PlayAgainBtn= document.querySelector('button');
+const PlayAgainBtnEl= document.querySelector('h3');
+const backgroundmusicaudio=document.getElementById('backgroundMusic')
+
 /*----- event listeners -----*/
 imgEls.forEach(imgEl => {
     imgEl.addEventListener('click', handleClick)
 })
-
+ PlayAgainBtnEl.addEventListener('click', init)
 /*----- functions -----*/
 init();
 
@@ -50,6 +54,8 @@ function render() {
     });
     if (gameStatus === 'W') {
         msgEl.innerHTML = 'You Won!';
+       
+
     } else if (gameStatus === 'L') {
         msgEl.innerHTML = 'You Lose!';
     } else {

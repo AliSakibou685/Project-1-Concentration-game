@@ -19,6 +19,7 @@ h1 {
   color: whitesmoke;
   font-size: 64px;
   text-align: center;
+  
 }
 
 img {
@@ -45,3 +46,18 @@ main {
 img.flip {
   transform: rotateY(180deg); 
 }
+
+  h3{
+  border: 3px solid ;
+  padding: 10px;
+  color: aqua;
+}
+
+h1 {
+  
+    font-size: 7.5mm;
+    color: #FFCC00;
+    text-shadow: 0 0 5px #FFCC00, 0 0 20px #FF8800, 0 0 40px #FF4400;
+    animation: bounce 2s infinite, glow 1.5s alternate infinite;
+}
+
