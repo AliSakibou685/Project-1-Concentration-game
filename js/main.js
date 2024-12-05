@@ -13,6 +13,9 @@ const CARD_BACK = 'https://i.imgur.com/ad9732D.jpg';
 
 const MAX_BAD_GUESSES = 10;
 
+const winAudio = new Audio("Assets/Music/Win.mp3");
+const loseAudio = new Audio("Assets/Music/Win.mp3");
+
 /*----- state variables -----*/
 let cards;
 let firstCard;
@@ -20,20 +23,19 @@ let numBad;
 let ignoreClicks;
 let gameStatus;
 
-
-
 /*----- cached elements  -----*/
 const msgEl = document.querySelector('h3');
 const imgEls = [...document.querySelectorAll('main > img')];
-const PlayAgainBtn= document.querySelector('button');
-const PlayAgainBtnEl= document.querySelector('h3');
-const backgroundmusicaudio=document.getElementById('backgroundMusic')
+const PlayAgainBtn = document.querySelector('button');
+const PlayAgainBtnEl = document.querySelector('h3');
+const bgAudio = document.getElementById('background-audio');
 
 /*----- event listeners -----*/
 imgEls.forEach(imgEl => {
-    imgEl.addEventListener('click', handleClick)
-})
- PlayAgainBtnEl.addEventListener('click', init)
+    imgEl.addEventListener('click', handleClick);
+});
+PlayAgainBtnEl.addEventListener('click', init);
+
 /*----- functions -----*/
 init();
 
@@ -54,13 +56,15 @@ function render() {
     });
     if (gameStatus === 'W') {
         msgEl.innerHTML = 'You Won!';
-       
-
+        winAudio.play();
+        setTimeout(() => winAudio.pause(), 3000);
     } else if (gameStatus === 'L') {
         msgEl.innerHTML = 'You Lose!';
+        loseAudio.play();
+        setTimeout(() => loseAudio.pause(), 3000);
     } else {
         msgEl.innerHTML = `${MAX_BAD_GUESSES - numBad} incorrect guesses remaining`;
-    }  
+    }
 }
 
 function getShuffledCards() {
@@ -106,7 +110,6 @@ function handleClick(evt) {
     } else {
         firstCard = card;
     }
-    
     gameStatus = getGameStatus();
     render();
 }
