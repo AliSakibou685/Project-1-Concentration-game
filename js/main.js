@@ -26,15 +26,18 @@ let gameStatus;
 /*----- cached elements  -----*/
 const msgEl = document.querySelector('h3');
 const imgEls = [...document.querySelectorAll('main > img')];
-const PlayAgainBtn = document.querySelector('button');
-const PlayAgainBtnEl = document.querySelector('h3');
+const PlayAgainBtn = document.querySelector('#play-again');
 const bgAudio = document.getElementById('background-audio');
 
 /*----- event listeners -----*/
 imgEls.forEach(imgEl => {
     imgEl.addEventListener('click', handleClick);
 });
-PlayAgainBtnEl.addEventListener('click', init);
+PlayAgainBtn.addEventListener('click', ()=> {
+    if (numBad >= 10 ){
+        init()
+    }
+});
 
 /*----- functions -----*/
 init();

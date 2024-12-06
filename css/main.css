@@ -54,9 +54,15 @@ h1 {
   font-size: 7.5mm;
   color: #FFCC00;
   text-shadow: 0 0 5px #FFCC00, 0 0 20px #FF8800, 0 0 40px #FF4400;
-  animation: bounce 2s infinite, glow 1.5s alternate infinite;
+  
 }
 
+h2 {
+  font-size: 7.5mm;
+  color: #7f7448;
+  text-shadow: 0 0 5px #494123, 0 0 20px #c47f30, 0 0 40px #ad593a;
+  
+}
 main>img {
   border: 1.5vmin solid purple;
   border-radius: 1.5vmin;

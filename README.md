@@ -18,7 +18,7 @@ The game continues until all pairs are matched.
 - CardStarter CSS Library
 
 # Getting Started
-[((https://alisakibou685.github.io/Project-1-Concentration-game/))]
+[Click to Play](https://alisakibou685.github.io/Project-1-Concentration-game/)
 
 # Next Steps
 Online Multiplayer: Enable players to compete with others online in real-time, either by matching pairs at the same time or in a turn-based mode.
