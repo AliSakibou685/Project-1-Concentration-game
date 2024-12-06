@@ -14,7 +14,7 @@ const CARD_BACK = 'https://i.imgur.com/ad9732D.jpg';
 const MAX_BAD_GUESSES = 10;
 
 const winAudio = new Audio("Assets/Music/Win.mp3");
-const loseAudio = new Audio("Assets/Music/Win.mp3");
+const loseAudio = new Audio("Assets/lose.mp3");
 
 /*----- state variables -----*/
 let cards;
